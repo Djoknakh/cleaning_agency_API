@@ -3,19 +3,15 @@ class Sms_ru():
     def __init__(self, phone:str):
         self.phone = phone
 
-    def parse_phone(self):
-        self.phone = self.phone.replace("+", "")
-        self.phone = self.phone.replace("-", "")
-        self.phone = self.phone.replace(" ", "")
-        self.phone = self.phone.replace("(", "")
-        self.phone = self.phone.replace(")", "")
+    def validation_phone(self):
+        """Валидация телефона"""
+        for i in ["+", "-", " ", "(", ")"]:
+            self.phone = self.phone.replace(i, "")
         if self.phone[0] == "7" or self.phone[0] == "8":
             self.phone = self.phone[1:]
         if len(self.phone) == 10 and self.phone.isdigit() == True:
-            print("Телефон валидный")
+            return True
         else:
-            print("Телефон не валидный, введите заново")
+            return False
 
-my_phone = "+7 (998) 999-99-99"
-mysms = Sms_ru(my_phone)
-mysms.parse_phone()
+

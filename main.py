@@ -2,7 +2,7 @@ import json
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
 import logging
-
+from sms import *
 
 def run(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):
     server_address = ('', 8000)
@@ -15,7 +15,6 @@ def run(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):
 
 class HttpGetHandler(BaseHTTPRequestHandler):
     """Обработчик с реализованным методом do_GET."""
-
 
     def _set_response(self):
         self.send_response(200)
@@ -44,6 +43,17 @@ class HttpGetHandler(BaseHTTPRequestHandler):
         print(self.headers)
         print(phone)
 
+    # def _set_phone(self):
+    #     post_data = self.rfile.read(content_length)
+    #     meta_data = json.loads(post_data)
+    #     phone = meta_data["order"]["tel"]
+    #     print(self.headers)
+    #     print(phone)
+    #     return phone
 
+if __name__ == "__main__":
+
+    mysms = Sms_ru("+7-999-000-00-99")
+    print(mysms.validation_phone())
 
 run(handler_class=HttpGetHandler)
